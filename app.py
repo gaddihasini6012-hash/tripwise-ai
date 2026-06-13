@@ -2,46 +2,70 @@ import streamlit as st
 
 st.set_page_config(
     page_title="TripWise AI",
-    page_icon="✈️"
+    page_icon="✈️",
+    layout="wide"
 )
 
 st.title("✈️ TripWise AI")
 
-st.write("Plan your trip in seconds using AI")
+st.write("Your AI Travel Planner")
 
-destination = st.text_input("Destination")
+st.markdown("""
+Plan your trips faster and smarter.
 
-budget = st.number_input(
-    "Budget",
-    min_value=0
-)
+✔ Personalized Itineraries
 
-start_date = st.date_input("Start Date")
-end_date = st.date_input("End Date")
+✔ Budget-Friendly Recommendations
+
+✔ Crowd Predictions
+
+✔ Weather Insights
+""")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    destination = st.text_input("Destination")
+    start_date = st.date_input("Start Date")
+
+with col2:
+    budget = st.number_input("Budget")
+    end_date = st.date_input("End Date")
 
 interests = st.multiselect(
-    "Interests",
+    "Select Your Interests",
     [
         "Food",
-        "Nature",
         "Shopping",
+        "Nature",
         "Adventure",
         "Beaches",
         "Museums"
     ]
 )
 
-if st.button("Generate Itinerary"):
+if st.button("Generate Trip"):
 
-    st.success(
-        f"Your trip to {destination} is ready!"
-    )
+    st.success(f"Trip Plan Generated for {destination}")
 
-    st.subheader("Day 1")
-    st.write("Explore city center")
+    st.subheader("📅 Day 1")
+    st.info("""
+    🌅 Morning: Explore city center
 
-    st.subheader("Day 2")
-    st.write("Visit attractions")
+    🍽 Afternoon: Local food tour
 
-    st.subheader("Day 3")
-    st.write("Shopping and local food")
+    🌇 Evening: River walk
+    """)
+
+    st.subheader("💰 Estimated Cost")
+
+    c1, c2, c3 = st.columns(3)
+
+    c1.metric("Hotel", "$400")
+    c2.metric("Food", "$150")
+    c3.metric("Transport", "$80")
+
+    st.subheader("👥 Crowd Forecast")
+
+    st.success("Beach - Low Crowd")
+    st.warning("City Center - Medium Crowd")
