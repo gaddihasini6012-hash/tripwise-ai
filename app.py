@@ -1,24 +1,20 @@
 import streamlit as st
+from datetime import date
+import random
 
-st.set_page_config(
-    page_title="TripWise AI",
-    page_icon="✈️",
-    layout="wide"
-)
-
-# HERO SECTION
+st.set_page_config(page_title="TripWise AI", page_icon="✈️", layout="wide")
 
 st.title("✈️ TripWise AI")
+st.subheader("Plan Your Perfect Trip in Seconds")
 
 st.markdown("""
-## Plan Your Perfect Trip in Seconds
-
-TripWise AI helps you create personalized travel itineraries
-based on your budget, destination, travel dates, and interests.
-
-No travel agents.
-No endless research.
-Just smart travel planning.
+TripWise AI helps travelers create personalized itineraries based on:
+- Destination
+- Budget
+- Travel Dates
+- Interests
+- Crowd Awareness
+- Weather Insights
 """)
 
 st.image(
@@ -28,77 +24,61 @@ st.image(
 
 st.divider()
 
-# USER INPUTS
-
-st.header("🌍 Travel Planner")
-
 col1, col2 = st.columns(2)
 
 with col1:
-    destination = st.text_input("Destination")
-    start_date = st.date_input("Start Date")
+    destination = st.text_input("🌍 Destination")
+    start_date = st.date_input("📅 Start Date", value=date.today())
 
 with col2:
-    budget = st.number_input(
-        "Budget ($)",
-        min_value=0
-    )
-    end_date = st.date_input("End Date")
+    budget = st.number_input("💰 Budget ($)", min_value=0, value=1000)
+    end_date = st.date_input("📅 End Date", value=date.today())
 
 interests = st.multiselect(
-    "Choose Interests",
-    [
-        "Food",
-        "Shopping",
-        "Adventure",
-        "Nature",
-        "Museums",
-        "Beaches",
-        "Photography",
-        "Nightlife"
-    ]
+    "✨ Interests",
+    ["Food", "Shopping", "Nature", "Adventure", "Beaches",
+     "Museums", "Photography", "Nightlife"]
 )
 
-st.divider()
+activities = [
+    "City Center Tour",
+    "Local Food Experience",
+    "Beach Visit",
+    "Shopping District",
+    "Museum Exploration",
+    "Nature Park Visit",
+    "Sunset Viewpoint",
+    "Cultural Show",
+    "Photography Walk",
+    "Historic Landmarks"
+]
 
-# GENERATE BUTTON
+if st.button("🚀 Generate Trip Plan", use_container_width=True):
 
-if st.button(
-    "🚀 Generate Trip Plan",
-    use_container_width=True
-):
+    trip_days = max((end_date - start_date).days + 1, 1)
 
-    st.success(
-        f"Your Trip to {destination} is Ready!"
-    )
+    st.success(f"Your {trip_days}-Day Trip to {destination} is Ready!")
 
     st.header("📅 Personalized Itinerary")
 
-    st.info("""
-🌅 Morning:
-Explore the city center
+    for day in range(1, trip_days + 1):
+        morning = random.choice(activities)
+        afternoon = random.choice(activities)
+        evening = random.choice(activities)
 
-🍽 Afternoon:
-Try local restaurants and cafes
+        st.subheader(f"Day {day}")
 
-🌇 Evening:
-Visit famous landmarks and enjoy sunset views
-""")
+        st.info(f"""
+🌅 Morning: {morning}
 
-    st.info("""
-🌅 Day 2 Morning:
-Nature and sightseeing
+🍽 Afternoon: {afternoon}
 
-🍽 Afternoon:
-Shopping district
-
-🌇 Evening:
-Local cultural experiences
+🌇 Evening: {evening}
 """)
 
     st.divider()
 
-    st.header("💰 Estimated Trip Cost")
+    st.header("💰 Estimated Cost Breakdown")
 
     c1, c2, c3, c4 = st.columns(4)
 
@@ -110,7 +90,6 @@ Local cultural experiences
     st.divider()
 
     st.header("🌤 Weather Forecast")
-
     st.write("Day 1: Sunny - 24°C")
     st.write("Day 2: Cloudy - 21°C")
     st.write("Day 3: Light Rain - 19°C")
@@ -118,23 +97,14 @@ Local cultural experiences
     st.divider()
 
     st.header("👥 Crowd Forecast")
-
     st.success("Beach Area → Low Crowd")
-
     st.warning("City Center → Medium Crowd")
-
     st.error("Popular Tourist Spot → High Crowd")
 
     st.divider()
 
     st.header("✨ Travel Tips")
-
-    st.write("""
-✔ Travel early in the morning to avoid crowds.
-
-✔ Book hotels at least 2 weeks in advance.
-
-✔ Use local transport for lower costs.
-
-✔ Keep one free day for spontaneous activities.
-""")
+    st.write("✔ Book hotels early for better prices.")
+    st.write("✔ Visit attractions in the morning to avoid crowds.")
+    st.write("✔ Keep one flexible day in your itinerary.")
+    st.write("✔ Use local transport to save money.")
