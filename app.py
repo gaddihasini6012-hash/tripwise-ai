@@ -6,21 +6,31 @@ st.set_page_config(
     layout="wide"
 )
 
+# HERO SECTION
+
 st.title("✈️ TripWise AI")
 
-st.write("Your AI Travel Planner")
-
 st.markdown("""
-Plan your trips faster and smarter.
+## Plan Your Perfect Trip in Seconds
 
-✔ Personalized Itineraries
+TripWise AI helps you create personalized travel itineraries
+based on your budget, destination, travel dates, and interests.
 
-✔ Budget-Friendly Recommendations
-
-✔ Crowd Predictions
-
-✔ Weather Insights
+No travel agents.
+No endless research.
+Just smart travel planning.
 """)
+
+st.image(
+    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+    use_container_width=True
+)
+
+st.divider()
+
+# USER INPUTS
+
+st.header("🌍 Travel Planner")
 
 col1, col2 = st.columns(2)
 
@@ -29,43 +39,102 @@ with col1:
     start_date = st.date_input("Start Date")
 
 with col2:
-    budget = st.number_input("Budget")
+    budget = st.number_input(
+        "Budget ($)",
+        min_value=0
+    )
     end_date = st.date_input("End Date")
 
 interests = st.multiselect(
-    "Select Your Interests",
+    "Choose Interests",
     [
         "Food",
         "Shopping",
-        "Nature",
         "Adventure",
+        "Nature",
+        "Museums",
         "Beaches",
-        "Museums"
+        "Photography",
+        "Nightlife"
     ]
 )
 
-if st.button("Generate Trip"):
+st.divider()
 
-    st.success(f"Trip Plan Generated for {destination}")
+# GENERATE BUTTON
 
-    st.subheader("📅 Day 1")
+if st.button(
+    "🚀 Generate Trip Plan",
+    use_container_width=True
+):
+
+    st.success(
+        f"Your Trip to {destination} is Ready!"
+    )
+
+    st.header("📅 Personalized Itinerary")
+
     st.info("""
-    🌅 Morning: Explore city center
+🌅 Morning:
+Explore the city center
 
-    🍽 Afternoon: Local food tour
+🍽 Afternoon:
+Try local restaurants and cafes
 
-    🌇 Evening: River walk
-    """)
+🌇 Evening:
+Visit famous landmarks and enjoy sunset views
+""")
 
-    st.subheader("💰 Estimated Cost")
+    st.info("""
+🌅 Day 2 Morning:
+Nature and sightseeing
 
-    c1, c2, c3 = st.columns(3)
+🍽 Afternoon:
+Shopping district
 
-    c1.metric("Hotel", "$400")
-    c2.metric("Food", "$150")
-    c3.metric("Transport", "$80")
+🌇 Evening:
+Local cultural experiences
+""")
 
-    st.subheader("👥 Crowd Forecast")
+    st.divider()
 
-    st.success("Beach - Low Crowd")
-    st.warning("City Center - Medium Crowd")
+    st.header("💰 Estimated Trip Cost")
+
+    c1, c2, c3, c4 = st.columns(4)
+
+    c1.metric("Hotel", "$450")
+    c2.metric("Food", "$180")
+    c3.metric("Transport", "$90")
+    c4.metric("Activities", "$220")
+
+    st.divider()
+
+    st.header("🌤 Weather Forecast")
+
+    st.write("Day 1: Sunny - 24°C")
+    st.write("Day 2: Cloudy - 21°C")
+    st.write("Day 3: Light Rain - 19°C")
+
+    st.divider()
+
+    st.header("👥 Crowd Forecast")
+
+    st.success("Beach Area → Low Crowd")
+
+    st.warning("City Center → Medium Crowd")
+
+    st.error("Popular Tourist Spot → High Crowd")
+
+    st.divider()
+
+    st.header("✨ Travel Tips")
+
+    st.write("""
+✔ Travel early in the morning to avoid crowds.
+
+✔ Book hotels at least 2 weeks in advance.
+
+✔ Use local transport for lower costs.
+
+✔ Keep one free day for spontaneous activities.
+""")
